@@ -6,10 +6,23 @@
  * Exclusive-or gate:
  * if ((a and Not(b)) or (Not(a) and b)) out = 1, else out = 0
  */
+
+// a=0, b=1
+// a=1, b=0のときout=1
+
+// a'*b + a*b'
+// Or(a'*b, a*b')
 CHIP Xor {
     IN a, b;
     OUT out;
 
     PARTS:
-    //// Replace this comment with your code.
+    Not(in=a, out=nota);
+    And(a=nota, b=b, out=w1);
+
+    Not(in=b, out=notb);
+    And(a=a, b=notb, out=w2);
+
+    Or(a=w1, b=w2, out=out);
+
 }
